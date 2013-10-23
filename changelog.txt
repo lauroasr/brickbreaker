@@ -1,0 +1,105 @@
+char message[][100] = { "BRICK BREAKER", "Jogar", "Ver scores", "Sair", "Pausado", "Level", "A e D para mover a platforma", // 0
+
+"Q e E para trocar a direcao da bola", "Espaco para lancar a bola", "Carregando %.1f%%", "Game Over", // 7
+
+"Voce possui %i vida", "Deseja continuar?", "Deseja voltar ao menu inicial?", "Voce nao possui vidas para continuar :[" // 11
+
+"Erro. Arquivo level.txt nao encontrado", "Pressione espaco para refazer o menu" // 15
+                      };
+
+--------------------------- IMPLEMENTAR ----------------------------------------
+
+- 15/06/2013 -
+
+-1 mover os elementos da tela do carregando pra CIMA
+
+-2 quando a bola colidir com mais de um tijolo, fazer com que ela quebre somente um deles (não dar preferência ao diagonal)
+
+-3 sistema de score
+
+-4 perguntar o nome do jogador para imprimir no arquivo de recordes
+
+*5 angulação avançada da bola baseada na posição em que bateu na plataforma
+
+*6 novo elemento (@) chamado BUFF que transforma a bola que o encostar em uma super-bola que ignora colisões com tijolos e deixa rastro de seus movimentos. Também irá aumentar o score ganho dos tijolos quebrados pela super-bola por um período de tempo em 10x
+
+*7 printRecord() que recupera e alinha os 10 primeiros jogadores no arquivo record.txt
+
+------------------------------- BUGS -------------------------------------------
+
+- 15/06/2013 -
+
+@1 quando uma bola é spawnada, a chance de outras spawnarem é bem maior
+
+-2 no menu, as bolas parecem não colidir direito com os caracteres
+
+-3 a plataforma buga as vezes quando troca de tamanho (acaba ou começa buff)
+
+-4 removeEntity não copia a cor da bola
+
+*5 quando um elemento [3 por exemplo] não foi movido ainda, e um outro elemento [1 por exemplo] é removido do frame, o elemento [3] não será movido naquele frame, fazendo um efeito de congelamento cada vez que um elemento é removido da tela e um outro de posição maior está na tela
+
+-6 bolas invisíveis podem ser spawnadas
+
+-7 se você perder o jogo e resolver continuar, o frame da mensagem não é apagado perfeitamente
+
+-8 da segunda vez que se pega o buff da plataforma ela não aumenta de tamanho
+
+-9 elementos não se colidem se o máximo de elementos na tela foi alcançado
+
+
+
+
+----------------------------- CHANGE LOG ---------------------------------------
+
+- 15/06/2013 -
+
+* bug 4 corrigido - os elementos anteriores recebem a cor do elemento deletado
+
+* implementado o getHashPosition(x, y) que retorna a posição hash da posição informada. Fica mais fácil assim pegar a posição certa do tijolo: 
+brick[getHashPosition(x, y)]
+
+* implementado 2 - as bolas agora só conseguem destruir no máximo 1 tijolo por frame, dando preferência ao Y a sua frente
+
+* implementado o getCenterOfPlatform() que retorna o x do centro da plataforma
+
+* bug 7 corrigido - implementei a função deleteFrame(initX, finalX, initY, finalY) que deleta o frame e seu conteúdo
+
+* bug 2 corrigido - brickBoundaries era menor, portanto os últimos caracteres eram ignorados
+
+* implementado 1
+
+* bug 9 corrigido - a função randomEntitySpawn não setava brokeBrick para false caso o máximo de elementos na tela fosse alcançado
+
+* bug 3 e 8 corrigido - haviam problemas nas funções movePlatform(), updatePlatform() e updatePlatformSize(int size)
+
+
+- 16/06/2013 -
+
+* começado a implementação 3. Foi implementado as variáveis int score, scoreUpdate, scoreBuffTimer, scoreShowUpdateTimer, scoreIncrement
+
+
+- 21/06/2013 -
+
+* atualização na easy.h: Constantes de cores adicionadas, como também o BACKGROUND_COLOR(color) para mudar a cor do fundo.
+
+* As bolas agora não batem na linha do HUD, seu limite de colisão é MIN_Y + 1
+
+* o HUD agora tem uma cor de fundo. Poderá ser modificada através da constante HUD_BACKGROUND_COLOR
+
+
+- 22/06/2013 -
+
+* implementado 3
+
+* implementado 4 - getPlayerName() pega o nome do jogador e através da função saveScore() é possível salvar o score do jogador no arquivo txt, colocando-o na posição certa de acordo com a pontuação alcançada.
+
+* usando nova biblioteca string2.h para auxiliar na manipulação de strings
+
+
+- 23/06/2013 -
+
+* bug 6 corrigido - agora a função randomColor() recebe um parâmetro int color, que será a cor do fundo atual, evitando que a bola seja invisível
+
+* 
+
